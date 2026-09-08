@@ -1,23 +1,33 @@
 # Website screenshots
 
-The PNG files in this folder are **placeholders**. Replace each one with a real
-screenshot of the application, keeping the same file name so no HTML changes are
-needed.
+The PNG files in this folder are the live site screenshots.
 
-| File | Shown as | Expected size |
+| File | Shown as | Current size |
 | --- | --- | --- |
-| `editor.png` | Workflow editor (wide, full-width) | 1600 x 1000 |
-| `inspector.png` | Node inspector | 1200 x 900 |
-| `timeline.png` | Execution timeline | 1200 x 900 |
-| `plugin-manager.png` | Plugin Manager | 1200 x 900 |
-| `console.png` | Output console | 1200 x 900 |
+| `editor.png` | Workflow editor (wide, full-width) | 1919 x 1033 |
+| `inspector.png` | Node inspector | 407 x 942 |
+| `timeline.png` | Execution timeline | 384 x 278 |
+| `plugin-manager.png` | Plugin Manager | 985 x 661 |
+| `console.png` | Output console | 1275 x 512 |
+
+## Replacing a screenshot
+
+The gallery uses fixed-height frames with `object-fit: contain`, so images of
+any aspect ratio stay aligned — cards never stretch to match their image. You do
+not need to match the sizes above.
+
+Two things must stay in sync when you swap a file:
+
+- Update the `width` and `height` attributes on the matching `<img>` in
+  `index.html` to the real pixel size. These reserve layout space and prevent
+  content shift while the page loads; stale values reintroduce that shift.
+- If the new image is smaller than its frame (roughly under 400px tall), add the
+  `shot-small` class to its `<figure>` so it renders at native size instead of
+  being upscaled and looking soft. `timeline.png` uses this today. Remove the
+  class if you replace it with a larger capture.
 
 ## Capture guidance
 
-- Use the exact pixel sizes above. The `<img>` tags in `index.html` declare these
-  `width`/`height` values to reserve layout space and avoid content shift while
-  loading. If you use different dimensions, keep the same aspect ratio
-  (16:10 for `editor.png`, 4:3 for the rest) or update the attributes to match.
 - Capture the window only, not the full desktop.
 - Use a sample workflow with readable node names. Avoid real credentials,
   internal hostnames, file paths, tokens, or customer data — these images are

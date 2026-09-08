@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://gingerflow.dev/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://gingerflow.dev/screenshots/editor.png</image:loc>
+      <image:title>GingerFlow workflow editor</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gingerflow.dev/screenshots/inspector.png</image:loc>
+      <image:title>GingerFlow node inspector</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gingerflow.dev/screenshots/timeline.png</image:loc>
+      <image:title>GingerFlow execution timeline</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gingerflow.dev/screenshots/plugin-manager.png</image:loc>
+      <image:title>GingerFlow Plugin Manager</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gingerflow.dev/screenshots/console.png</image:loc>
+      <image:title>GingerFlow output console</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://gingerflow.dev/capabilities.html</loc>

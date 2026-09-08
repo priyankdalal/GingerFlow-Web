@@ -16,7 +16,12 @@
   <meta property="og:description" content="Build, execute, and reuse data workflows on a visual canvas. Streaming pipelines, reusable custom nodes, and Python plugins.">
   <meta property="og:url" content="https://gingerflow.dev/">
   <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://gingerflow.dev/screenshots/editor.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1000">
+  <meta property="og:image:alt" content="The GingerFlow workflow editor showing a node graph on the canvas">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gingerflow.dev/screenshots/editor.png">
   <meta name="twitter:title" content="GingerFlow - Visual Workflow Engine for Data Automation">
   <meta name="twitter:description" content="Build, execute, and reuse data workflows on a visual canvas. Free for Windows.">
   <link rel="stylesheet" href="styles.css">
@@ -29,6 +34,13 @@
     "operatingSystem": "Windows 10, Windows 11",
     "softwareVersion": "1.0.2",
     "url": "https://gingerflow.dev/",
+    "screenshot": [
+      "https://gingerflow.dev/screenshots/editor.png",
+      "https://gingerflow.dev/screenshots/inspector.png",
+      "https://gingerflow.dev/screenshots/timeline.png",
+      "https://gingerflow.dev/screenshots/plugin-manager.png",
+      "https://gingerflow.dev/screenshots/console.png"
+    ],
     "downloadUrl": "https://github.com/priyankdalal/GingerFlow/releases/tag/1.0.1-Beta",
     "description": "A desktop visual workflow engine for building, executing, packaging, and reusing data workflows, with a validated DAG runtime, streaming pipelines, and Python plugins.",
     "featureList": [
@@ -119,6 +131,47 @@
         <article class="feature-card accent-blue"><span class="feature-number">02</span><div class="feature-icon">&#10022;</div><h3>Run with confidence</h3><p>Validate graphs, retry failures, inspect timing, and cancel safely. The runtime is designed to show its work.</p><a href="capabilities.html#runtime">Explore the runtime <span>-&gt;</span></a></article>
         <article class="feature-card accent-purple"><span class="feature-number">03</span><div class="feature-icon">&#8734;</div><h3>Make it reusable</h3><p>Turn proven sections into custom nodes, or extend the system with Python plugins without touching the core.</p><a href="plugin-development.html">Explore extensibility <span>-&gt;</span></a></article>
       </div>
+    </section>
+
+    <section class="section shell" id="screenshots">
+      <div class="section-heading">
+        <p class="eyebrow">Inside the app</p>
+        <h2>A workspace built for clarity.</h2>
+        <p>The editor, inspector, timeline, and console are designed to answer one question at a time: what is connected, what is configured, and what happened on the last run.</p>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot shot-wide">
+          <div class="shot-frame">
+            <img src="screenshots/editor.png" alt="GingerFlow workflow editor showing a node graph on the canvas with the toolbox and inspector panels" width="1600" height="1000" loading="lazy" decoding="async">
+          </div>
+          <figcaption><strong>Workflow editor</strong><span>Compose typed nodes on the canvas, with the toolbox on the left and the inspector on the right.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="screenshots/inspector.png" alt="GingerFlow inspector panel showing node configuration fields and port settings" width="1200" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption><strong>Node inspector</strong><span>Configure ports, properties, and execution settings for the selected node.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="screenshots/timeline.png" alt="GingerFlow process timeline showing per-node execution order and timing for a workflow run" width="1200" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption><strong>Execution timeline</strong><span>Follow run order and per-node timing to see exactly where time is spent.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="screenshots/plugin-manager.png" alt="GingerFlow Plugin Manager listing installed Python plugins with author, version, and signed status" width="1200" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption><strong>Plugin Manager</strong><span>Install Python plugins from a ZIP and review author, version, and trust status.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="screenshots/console.png" alt="GingerFlow output console streaming log messages from a running workflow" width="1200" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption><strong>Output console</strong><span>Watch log output stream in real time while a workflow runs.</span></figcaption>
+        </figure>
+      </div>
+      <p class="shot-note">Screenshots reflect GingerFlow 1.0.2 on Windows. <a href="download.html">Download the release</a> to try it yourself.</p>
     </section>
 
     <section class="dark-section" id="capabilities">

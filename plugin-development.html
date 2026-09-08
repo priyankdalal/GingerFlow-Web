@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plugin Development - Build Python Workflow Nodes | GingerFlow</title>
+  <meta name="description" content="Build GingerFlow plugins in Python: manifest reference, ZIP packaging, node function contract, data types, config widgets, dependencies, debugging, and security guidance.">
+  <meta name="keywords" content="GingerFlow plugin development, Python workflow nodes, plugin.json manifest, custom automation nodes, workflow SDK">
+  <link rel="canonical" href="https://gingerflow.dev/plugin-development.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GingerFlow">
+  <meta property="og:title" content="Plugin Development - Build Python Workflow Nodes | GingerFlow">
+  <meta property="og:description" content="Package Python nodes as ZIP plugins and install them without recompiling the application.">
+  <meta property="og:url" content="https://gingerflow.dev/plugin-development.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plugin Development | GingerFlow">
+  <meta name="twitter:description" content="Package Python nodes as ZIP plugins and install them without recompiling.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Build a GingerFlow Python plugin",
+    "description": "Create, package, and install a Python-backed node plugin for GingerFlow.",
+    "step": [
+      { "@type": "HowToStep", "name": "Create the manifest", "text": "Write a plugin.json file at the archive root describing the plugin and its nodes." },
+      { "@type": "HowToStep", "name": "Implement the node", "text": "Write a Python function that receives inputs and config and returns a dictionary of outputs." },
+      { "@type": "HowToStep", "name": "Package the plugin", "text": "Compress the plugin directory contents so plugin.json sits at the ZIP root." },
+      { "@type": "HowToStep", "name": "Install the plugin", "text": "Open the Plugin Manager and install the ZIP; nodes appear in the Toolbox immediately." }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="GingerFlow home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Ginger<span>Flow</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+      <div class="nav-links" id="site-menu">
+        <a href="capabilities.html">Capabilities</a>
+        <a href="docs.html">Docs</a>
+        <a href="plugin-development.html" aria-current="page">Plugins</a>
+        <a href="about.html">About</a>
+        <a class="nav-cta" href="download.html">Download <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span>/</span> Plugin development</nav>
+      <p class="eyebrow"><span class="eyebrow-dot"></span> Plugin development</p>
+      <h1>Turn any Python capability<br>into a <em>visual node.</em></h1>
+      <p class="page-lede">A plugin is a ZIP archive containing a manifest and Python implementations. No C++ knowledge, no recompilation, no restart. New nodes appear in the Toolbox immediately after installation.</p>
+    </section>
+
+    <div class="shell docs-layout">
+      <aside class="docs-nav" aria-label="Guide sections">
+        <h2>On this page</h2>
+        <a href="#structure">Package structure</a>
+        <a href="#manifest">Manifest reference</a>
+        <a href="#node-function">Node function</a>
+        <a href="#types">Data types</a>
+        <a href="#config">Config widgets</a>
+        <a href="#example">Complete example</a>
+        <a href="#dependencies">Dependencies</a>
+        <a href="#runtime">Runtime model</a>
+        <a href="#debugging">Debugging</a>
+        <a href="#security">Security</a>
+        <a href="#checklist">Checklist</a>
+      </aside>
+
+      <article class="docs-body">
+        <section id="structure">
+          <h2>Package structure</h2>
+          <pre class="doc-code"><code>my_plugin.zip
+├── plugin.json          &lt;- required manifest, MUST be at ZIP root
+├── icons.json           &lt;- optional icon map
+├── nodes/
+│   └── transform.py     &lt;- Python implementations
+└── requirements.txt     &lt;- optional pip dependencies</code></pre>
+          <p>Package the <em>contents</em> of the plugin directory, not the directory itself.</p>
+          <pre class="doc-code"><code>Compress-Archive -Path my_plugin\* -DestinationPath my_plugin.zip</code></pre>
+          <p class="callout warning"><strong>Most common packaging error.</strong> If <code>plugin.json</code> ends up nested inside a folder in the archive, GingerFlow rejects the plugin. Verify the archive listing shows <code>plugin.json</code> with no path prefix.</p>
+        </section>
+
+        <section id="manifest">
+          <h2>Manifest reference</h2>
+          <h3>Top-level fields</h3>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>name</code></td><td>string</td><td>Yes</td><td>Unique plugin ID, used as the install directory name.</td></tr>
+              <tr><td><code>version</code></td><td>string</td><td>No</td><td>Semantic version shown in Plugin Manager.</td></tr>
+              <tr><td><code>author</code></td><td>string</td><td>No</td><td>Author name shown in plugin metadata.</td></tr>
+              <tr><td><code>description</code></td><td>string</td><td>No</td><td>Short summary shown in Plugin Manager.</td></tr>
+              <tr><td><code>nodes</code></td><td>array</td><td>Yes</td><td>List of node definitions.</td></tr>
+            </tbody>
+          </table>
+          <h3>Node fields</h3>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Field</th><th scope="col">Required</th><th scope="col">Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>type</code></td><td>Yes</td><td>Globally unique ID, conventionally <code>&lt;plugin&gt;.&lt;node&gt;</code>.</td></tr>
+              <tr><td><code>display_name</code></td><td>Yes</td><td>Label shown on the canvas and in the Toolbox.</td></tr>
+              <tr><td><code>category</code></td><td>No</td><td>Toolbox grouping for the node.</td></tr>
+              <tr><td><code>description</code></td><td>No</td><td>Searchable summary shown in Quick Node Search.</td></tr>
+              <tr><td><code>entry</code></td><td>Yes</td><td>Python file path relative to the plugin root.</td></tr>
+              <tr><td><code>function</code></td><td>Yes</td><td>Name of the function to call in that file.</td></tr>
+              <tr><td><code>inputs</code></td><td>Yes</td><td>Array of input port definitions.</td></tr>
+              <tr><td><code>outputs</code></td><td>Yes</td><td>Array of output port definitions.</td></tr>
+              <tr><td><code>config</code></td><td>No</td><td>Inspector fields passed to the function as config.</td></tr>
+              <tr><td><code>timeout</code></td><td>No</td><td>Seconds before the node is cancelled. <code>0</code> disables the deadline.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="node-function">
+          <h2>Node function</h2>
+          <p>A node implementation is a plain Python function. It receives the resolved inputs and configuration, and returns a dictionary keyed by output port name.</p>
+          <pre class="doc-code"><code>def run(inputs, config):
+    text = inputs.get("text", "")
+    mode = config.get("mode", "upper")
+
+    if not isinstance(text, str):
+        raise ValueError("text must be a string")
+
+    result = text.upper() if mode == "upper" else text.lower()
+    return {"result": result, "length": len(result)}</code></pre>
+          <p>Raise an exception to fail the node. The message surfaces in the Output console and triggers the configured retry policy. Return only JSON-compatible values so results can cross the process boundary.</p>
+        </section>
+
+        <section id="types">
+          <h2>Data types</h2>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Type</th><th scope="col">Python value</th><th scope="col">Typical use</th></tr></thead>
+            <tbody>
+              <tr><td><code>string</code></td><td><code>str</code></td><td>Text, paths, URLs, identifiers</td></tr>
+              <tr><td><code>number</code></td><td><code>int</code> / <code>float</code></td><td>Counts, amounts, thresholds</td></tr>
+              <tr><td><code>boolean</code></td><td><code>bool</code></td><td>Flags and branch conditions</td></tr>
+              <tr><td><code>object</code></td><td><code>dict</code></td><td>Structured records and payloads</td></tr>
+              <tr><td><code>array</code></td><td><code>list</code></td><td>Batches, rows, collections</td></tr>
+              <tr><td><code>any</code></td><td>any JSON value</td><td>Pass-through and generic utilities</td></tr>
+            </tbody>
+          </table>
+          <p class="callout"><strong>Prefer paths over payloads for large data.</strong> Passing a file path between nodes keeps memory bounded; passing a multi-gigabyte value does not.</p>
+        </section>
+
+        <section id="config">
+          <h2>Config widgets</h2>
+          <p>Config entries render as Inspector fields and arrive in the <code>config</code> dictionary. Common widget types include single-line text, multi-line text, number, checkbox, dropdown choice, file or directory pickers, and password fields for credentials.</p>
+          <p>Use config for settings that belong to the node instance, and inputs for values produced by upstream nodes.</p>
+        </section>
+
+        <section id="example">
+          <h2>Complete example</h2>
+          <p>A minimal two-file plugin that adds one node.</p>
+          <h3>plugin.json</h3>
+          <pre class="doc-code"><code>{
+  "name": "acme_text",
+  "version": "1.0.0",
+  "author": "Acme",
+  "description": "Text utilities for GingerFlow",
+  "nodes": [
+    {
+      "type": "acme_text.change_case",
+      "display_name": "Change Case",
+      "category": "Text",
+      "description": "Convert text to upper or lower case",
+      "entry": "nodes/change_case.py",
+      "function": "run",
+      "inputs": [
+        { "name": "text", "type": "string", "required": true }
+      ],
+      "outputs": [
+        { "name": "result", "type": "string" },
+        { "name": "length", "type": "number" }
+      ],
+      "config": [
+        {
+          "name": "mode",
+          "type": "choice",
+          "label": "Mode",
+          "options": ["upper", "lower"],
+          "default": "upper"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+          <h3>nodes/change_case.py</h3>
+          <pre class="doc-code"><code>def run(inputs, config):
+    text = inputs.get("text", "")
+    mode = config.get("mode", "upper")
+    result = text.upper() if mode == "upper" else text.lower()
+    return {"result": result, "length": len(result)}</code></pre>
+          <p>Zip the contents, install through the Plugin Manager, and the <strong>Change Case</strong> node appears under the <em>Text</em> category.</p>
+        </section>
+
+        <section id="dependencies">
+          <h2>Dependencies</h2>
+          <p>List third-party packages in <code>requirements.txt</code> at the plugin root. GingerFlow installs them into the configured Python environment during installation.</p>
+          <pre class="doc-code"><code>requests&gt;=2.31
+python-dateutil&gt;=2.9</code></pre>
+          <p>Pin sensible version ranges so a future release cannot silently break your node, and prefer a dedicated virtual environment for experimental plugins.</p>
+        </section>
+
+        <section id="runtime">
+          <h2>Runtime model</h2>
+          <p>Python nodes execute through a workflow-scoped, long-lived worker session that exchanges framed JSON requests and responses. That design keeps interpreter startup out of the per-node path and isolates plugin failures from the desktop process.</p>
+          <ul class="plain-list">
+            <li>A node <code>timeout</code> of <code>0</code> is appropriate only for intentionally long-running listeners.</li>
+            <li>Workflow-level stop and cancel remain available even when a node has no deadline.</li>
+            <li>Register sockets, files, database handles, and subprocesses for cleanup so cancellation releases them.</li>
+            <li>A failed or timed-out Python process does not corrupt the desktop process.</li>
+          </ul>
+        </section>
+
+        <section id="debugging">
+          <h2>Debugging</h2>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Symptom</th><th scope="col">Likely cause</th></tr></thead>
+            <tbody>
+              <tr><td>Plugin rejected on install</td><td><code>plugin.json</code> not at ZIP root, or invalid JSON.</td></tr>
+              <tr><td>Node missing from Toolbox</td><td>Duplicate or malformed <code>type</code>, or a manifest node entry that failed validation.</td></tr>
+              <tr><td>Import error at run time</td><td>Missing dependency, or an <code>entry</code> path not relative to the plugin root.</td></tr>
+              <tr><td>Node returns nothing</td><td>Function returned a non-dictionary, or output keys do not match declared ports.</td></tr>
+              <tr><td>Node never finishes</td><td>Blocking call with <code>timeout</code> set to <code>0</code> and no stop condition.</td></tr>
+            </tbody>
+          </table>
+          <p>Use the Output console for tracebacks and bounded payload previews, and print diagnostics from your node while developing.</p>
+        </section>
+
+        <section id="security">
+          <h2>Security</h2>
+          <p class="callout warning"><strong>Plugins are executable code.</strong> Installing one runs code through the configured Python runtime. Install only packages from sources you trust, review the Python files and <code>requirements.txt</code>, and check network calls, subprocess execution, credential handling, and file access before use.</p>
+          <p>Never hard-code secrets in plugin source or manifests. Read credentials from environment values or a secret store, and use least-privilege accounts for databases and APIs.</p>
+        </section>
+
+        <section id="checklist">
+          <h2>Packaging checklist</h2>
+          <ul class="check-list">
+            <li><code>plugin.json</code> is at the ZIP root and parses as UTF-8 JSON.</li>
+            <li>Every <code>type</code> is unique and namespaced by the plugin name.</li>
+            <li>Every <code>entry</code> path is relative to the plugin root and exists.</li>
+            <li>Declared outputs match the dictionary keys the function returns.</li>
+            <li>Dependencies are listed and version-pinned in <code>requirements.txt</code>.</li>
+            <li>Errors raise exceptions with actionable messages.</li>
+            <li>Long-running nodes have an explicit stop condition and cleanup.</li>
+            <li>No secrets are embedded in code, config defaults, or the manifest.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
+
+    <section class="cta-section shell">
+      <div class="cta-card">
+        <div><p class="eyebrow">Start building</p><h2>Install GingerFlow and<br>ship your <em>first node.</em></h2></div>
+        <div class="cta-action"><a class="button button-primary" href="download.html">Download GingerFlow <span aria-hidden="true">-&gt;</span></a><small>Python 3 &middot; ZIP packaging</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a>
+        <p>Visual workflows, without the black box.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product"><h2>Product</h2><a href="capabilities.html">Capabilities</a><a href="download.html">Download</a><a href="about.html">About</a></nav>
+      <nav class="footer-col" aria-label="Documentation"><h2>Documentation</h2><a href="docs.html">Docs</a><a href="plugin-development.html">Plugin development</a><a href="docs.html#troubleshooting">Troubleshooting</a></nav>
+    </div>
+    <div class="shell footer-base"><span>Built for clarity.</span><span class="footer-note">GingerFlow 1.0.2</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

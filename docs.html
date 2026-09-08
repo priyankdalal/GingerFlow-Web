@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation - Getting Started &amp; Workflow Guide | GingerFlow</title>
+  <meta name="description" content="GingerFlow documentation: install the app, build your first workflow, understand nodes and execution, work with variables and streaming, and troubleshoot common issues.">
+  <meta name="keywords" content="GingerFlow documentation, workflow guide, node reference, workflow engine tutorial, DAG execution docs">
+  <link rel="canonical" href="https://gingerflow.dev/docs.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GingerFlow">
+  <meta property="og:title" content="Documentation - Getting Started &amp; Workflow Guide | GingerFlow">
+  <meta property="og:description" content="Install, build your first workflow, learn the execution model, and troubleshoot with confidence.">
+  <meta property="og:url" content="https://gingerflow.dev/docs.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Documentation | GingerFlow">
+  <meta name="twitter:description" content="Install, build your first workflow, learn the execution model, and troubleshoot.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What file format does GingerFlow use for workflows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "GingerFlow saves workflows as .fg files containing node IDs and types, positions, connections, input defaults, configuration, variables, viewport state, notes, and embedded custom node definitions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can GingerFlow run workflows without the desktop UI?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The standalone worker executable runs a .fg workflow headlessly, which suits scripts, scheduled jobs, and CI pipelines." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does GingerFlow handle very large CSV files?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Stream category reads files in bounded binary chunks or CSV row batches, so memory use stays bounded instead of loading an entire dataset at once." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="GingerFlow home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Ginger<span>Flow</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+      <div class="nav-links" id="site-menu">
+        <a href="capabilities.html">Capabilities</a>
+        <a href="docs.html" aria-current="page">Docs</a>
+        <a href="plugin-development.html">Plugins</a>
+        <a href="about.html">About</a>
+        <a class="nav-cta" href="download.html">Download <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span>/</span> Documentation</nav>
+      <p class="eyebrow"><span class="eyebrow-dot"></span> Documentation</p>
+      <h1>Learn the system,<br><em>then build fast.</em></h1>
+      <p class="page-lede">Good workflows start with a clear mental model. This guide covers installation, your first workflow, the execution model, persistence, and troubleshooting.</p>
+    </section>
+
+    <div class="shell docs-layout">
+      <aside class="docs-nav" aria-label="Documentation sections">
+        <h2>On this page</h2>
+        <a href="#install">Installation</a>
+        <a href="#first-workflow">First workflow</a>
+        <a href="#concepts">Core concepts</a>
+        <a href="#execution">Execution model</a>
+        <a href="#branching">Conditional branching</a>
+        <a href="#variables">Variables &amp; templates</a>
+        <a href="#persistence">Saving workflows</a>
+        <a href="#headless">Headless runs</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </aside>
+
+      <article class="docs-body">
+        <section id="install">
+          <h2>Installation</h2>
+          <p>Download the packaged release for Windows, extract it, and run the desktop application. No compiler or build toolchain is required.</p>
+          <ol class="step-list">
+            <li>Open the <a href="download.html">download page</a> and get the latest release archive.</li>
+            <li>Extract the ZIP to a folder you control, such as <code>C:\Apps\GingerFlow</code>.</li>
+            <li>Run <code>GingerFlow.exe</code>.</li>
+            <li>Optional: install Python 3 if you plan to use Python plugins.</li>
+          </ol>
+          <p class="callout"><strong>Python is optional.</strong> Built-in nodes run without it. A Python 3 runtime is only needed for plugin-backed nodes, and GingerFlow can guide setup on first use.</p>
+        </section>
+
+        <section id="first-workflow">
+          <h2>Your first workflow</h2>
+          <p>Keep the first graph small. Test one branch at a time before adding retries, loops, or destructive operations.</p>
+          <ol class="step-list">
+            <li>Drag a value-producing node from the Toolbox onto the canvas.</li>
+            <li>Add a transform, calculation, file, network, or database node.</li>
+            <li>Drag from an output port to a compatible input port to connect them.</li>
+            <li>Select a node and configure it in the Property Inspector.</li>
+            <li>Run with <strong>Run Workflow</strong> or <kbd>F5</kbd>.</li>
+            <li>Inspect the Output console, timeline, and Process Stats.</li>
+            <li>Save the workflow as a <code>.fg</code> file.</li>
+          </ol>
+          <p class="callout warning"><strong>Fast loops.</strong> In a tight repeat loop, add a <code>Delay</code> node of at least 500&nbsp;ms so UI updates are not over-exhausted and the application stays responsive.</p>
+        </section>
+
+        <section id="concepts">
+          <h2>Core concepts</h2>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Concept</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Node</strong></td><td>A focused operation with declared inputs, outputs, configuration, and metadata.</td></tr>
+              <tr><td><strong>Port</strong></td><td>A typed connection point. Inputs accept values; outputs emit them.</td></tr>
+              <tr><td><strong>Wire</strong></td><td>A directed dependency from one node's output to another node's input.</td></tr>
+              <tr><td><strong>Workflow</strong></td><td>A saved graph of nodes, connections, configuration, variables, and notes.</td></tr>
+              <tr><td><strong>Executor</strong></td><td>The runtime that validates the graph and evaluates nodes in dependency order.</td></tr>
+              <tr><td><strong>Plugin</strong></td><td>An installable package contributing Python-backed nodes.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="execution">
+          <h2>Execution model</h2>
+          <p>Before a run, GingerFlow validates the graph and computes a topological order. Cycles are rejected unless expressed through a node's explicit repeat behavior. During execution the runtime:</p>
+          <ol class="step-list">
+            <li>Propagates values through active connections.</li>
+            <li>Executes enabled nodes whose required inputs are available.</li>
+            <li>Marks affected downstream nodes stale for reevaluation.</li>
+            <li>Applies control signals and the retry policy.</li>
+            <li>Publishes node and workflow status to the desktop and worker.</li>
+          </ol>
+          <h3>Control signals</h3>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Signal</th><th scope="col">Effect</th></tr></thead>
+            <tbody>
+              <tr><td><code>__active_outputs__</code></td><td>Selects which output ports are active for this pass.</td></tr>
+              <tr><td><code>__stop_branch__</code></td><td>Blocks the node's outgoing branch.</td></tr>
+              <tr><td><code>__repeat_node__</code></td><td>Schedules the node for another iteration.</td></tr>
+              <tr><td><code>__enabled__</code></td><td>Skips the node and blocks its outputs when false.</td></tr>
+            </tbody>
+          </table>
+          <p>Use the per-node <strong>Max Iterations</strong> setting to bound repeat workflows. A value of <code>0</code> means unlimited where supported, so pair it with an explicit stop condition.</p>
+          <h3>Retries</h3>
+          <p>When a node raises an error, the executor retries up to the configured retry count, waiting the configured backoff between attempts. If it still fails, execution stops and the failure is published with its error detail.</p>
+        </section>
+
+        <section id="branching">
+          <h2>Conditional branching</h2>
+          <p>The <code>logic.if</code> node is a branch controller with three outputs.</p>
+          <table class="spec-table">
+            <thead><tr><th scope="col">Output</th><th scope="col">Active when</th><th scope="col">Use it for</th></tr></thead>
+            <tbody>
+              <tr><td><code>true</code></td><td>Condition is true</td><td>Work that should only run on the true branch</td></tr>
+              <tr><td><code>false</code></td><td>Condition is false</td><td>Work that should only run on the false branch</td></tr>
+              <tr><td><code>out</code></td><td>Always</td><td>Consumers that need the boolean result value</td></tr>
+            </tbody>
+          </table>
+          <p>Comparators include <code>equals</code>, <code>not_equals</code>, <code>greater_than</code>, <code>greater_than_or_equal</code>, <code>less_than</code>, <code>less_than_or_equal</code>, and <code>contains</code>.</p>
+          <p class="callout"><strong>Common mistake.</strong> Connecting a value consumer to <code>true</code> instead of <code>out</code> silently blocks it whenever the condition is false. If a downstream node needs the result rather than the branch signal, wire it to <code>out</code>.</p>
+        </section>
+
+        <section id="variables">
+          <h2>Variables and templates</h2>
+          <p>Workflow variables hold values shared across the graph, which keeps configuration in one place instead of duplicated across nodes. Reference them from supported string fields using template syntax, and resolve them at execution time.</p>
+          <p>Use variables for base URLs, root directories, batch sizes, environment names, and other values that change between runs or environments.</p>
+          <p class="callout warning"><strong>Never store secrets in a workflow.</strong> Passwords, tokens, private keys, and connection strings should come from environment values or a secret store, not from <code>.fg</code> files, logs, or screenshots.</p>
+        </section>
+
+        <section id="persistence">
+          <h2>Saving workflows</h2>
+          <p>A <code>.fg</code> file stores node IDs and types, positions, connections, input defaults, node configuration, central widget state, workflow variables, viewport information, notes, and embedded custom node definitions.</p>
+          <p>Because definitions travel with the file, a workflow using custom nodes stays intact when shared. If a definition is unavailable, GingerFlow can expand the saved inner nodes rather than losing structure.</p>
+        </section>
+
+        <section id="headless">
+          <h2>Headless runs</h2>
+          <p>The standalone worker executes a saved workflow without the desktop UI, which suits scheduled jobs, scripts, and CI pipelines.</p>
+          <pre class="doc-code"><code>GingerFlow-Cli.exe path\to\workflow.fg</code></pre>
+          <p>The worker emits execution events, so you can capture node status, failures, and completion from an automation host.</p>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>Troubleshooting</h2>
+          <h3>A workflow does not run</h3>
+          <p>Check the Output console and timeline for the first failed node, then verify the graph has no cycle, required inputs are connected or defaulted, port types are compatible, branches are wired to the intended output, and external paths, URLs, credentials, and database drivers are available.</p>
+          <h3>The application becomes unresponsive</h3>
+          <p>Use bounded streaming nodes for large files and add a <code>Delay</code> node of at least 500&nbsp;ms in fast loops. Stop or cancel long-running listeners and review plugin cleanup behavior.</p>
+          <h3>A plugin is rejected</h3>
+          <p>Confirm <code>plugin.json</code> sits at the ZIP root, the manifest is valid UTF-8 JSON, every <code>entry</code> path is relative to the plugin root, and node type IDs are unique. See the <a href="plugin-development.html">plugin development guide</a>.</p>
+          <h3>Python nodes fail to start</h3>
+          <p>Verify the configured Python interpreter exists and that plugin dependencies installed successfully. Python failures are isolated from the desktop process, but the workflow still fails if a required runtime or package is missing.</p>
+        </section>
+      </article>
+    </div>
+
+    <section class="cta-section shell">
+      <div class="cta-card">
+        <div><p class="eyebrow">Next step</p><h2>Extend GingerFlow<br>with <em>your own nodes.</em></h2></div>
+        <div class="cta-action"><a class="button button-primary" href="plugin-development.html">Plugin development guide <span aria-hidden="true">-&gt;</span></a><small>Python 3 &middot; ZIP packaging</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a>
+        <p>Visual workflows, without the black box.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product"><h2>Product</h2><a href="capabilities.html">Capabilities</a><a href="download.html">Download</a><a href="about.html">About</a></nav>
+      <nav class="footer-col" aria-label="Documentation"><h2>Documentation</h2><a href="docs.html">Docs</a><a href="plugin-development.html">Plugin development</a><a href="docs.html#troubleshooting">Troubleshooting</a></nav>
+    </div>
+    <div class="shell footer-base"><span>Built for clarity.</span><span class="footer-note">GingerFlow 1.0.2</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

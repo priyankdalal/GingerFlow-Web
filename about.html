@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About GingerFlow - Architecture, Philosophy &amp; Responsible Use</title>
+  <meta name="description" content="Learn what GingerFlow is, the design philosophy behind it, its Qt 6 and C++20 architecture, technology stack, data handling policy, and responsible use guidance.">
+  <meta name="keywords" content="about GingerFlow, workflow engine architecture, Qt 6 desktop application, open workflow automation, responsible automation">
+  <link rel="canonical" href="https://gingerflow.dev/about.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GingerFlow">
+  <meta property="og:title" content="About GingerFlow - Architecture, Philosophy &amp; Responsible Use">
+  <meta property="og:description" content="The design philosophy, architecture, and responsible use principles behind GingerFlow.">
+  <meta property="og:url" content="https://gingerflow.dev/about.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About GingerFlow">
+  <meta name="twitter:description" content="The design philosophy, architecture, and responsible use principles behind GingerFlow.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About GingerFlow",
+    "description": "The design philosophy, architecture, and responsible use principles behind GingerFlow.",
+    "url": "https://gingerflow.dev/about.html",
+    "mainEntity": {
+      "@type": "SoftwareApplication",
+      "name": "GingerFlow",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows",
+      "softwareVersion": "1.0.2"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="GingerFlow home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Ginger<span>Flow</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+      <div class="nav-links" id="site-menu">
+        <a href="capabilities.html">Capabilities</a>
+        <a href="docs.html">Docs</a>
+        <a href="plugin-development.html">Plugins</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a class="nav-cta" href="download.html">Download <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span>/</span> About</nav>
+      <p class="eyebrow"><span class="eyebrow-dot"></span> About</p>
+      <h1>A workflow should be<br><em>readable.</em></h1>
+      <p class="page-lede">Most automation ends up as a script only its author understands. GingerFlow exists to make the structure of a process visible: what runs, in what order, with what data, and what happened on the last run.</p>
+    </section>
+
+    <section class="section shell">
+      <div class="split-block">
+        <div class="split-sticky">
+          <h2>The idea</h2>
+          <p>Turn a process into an explicit, inspectable graph.</p>
+        </div>
+        <div class="prose">
+          <p>A long imperative script hides its own structure. Branches are buried in conditionals, the data flow lives in variable names, and the only record of a run is whatever someone remembered to log.</p>
+          <p>GingerFlow takes the opposite approach. Each node has one focused responsibility. Each connection describes both a data dependency and an execution order. The result is a process that can be read, tested, explained, reused, and modified without reverse-engineering it first.</p>
+          <p>That clarity is not just aesthetic. When a workflow fails at 3 a.m., the question is always the same: which step failed, with what input, and what ran before it. A visual graph with a live execution timeline answers that directly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section">
+      <div class="shell">
+        <div class="section-heading light">
+          <h2>Design principles</h2>
+          <p>Four commitments that shape what goes into the product, and what stays out.</p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle"><span>01</span><h3>Show the work</h3><p>Execution state, timing, memory deltas, and output previews are first-class, not an afterthought bolted on for debugging.</p></article>
+          <article class="principle"><span>02</span><h3>Fail loudly, early</h3><p>Validate graph structure, reject malformed edges, and surface errors with context instead of failing silently mid-run.</p></article>
+          <article class="principle"><span>03</span><h3>Stay composable</h3><p>Small nodes with clear contracts combine into larger processes, and proven sections become reusable custom nodes.</p></article>
+          <article class="principle"><span>04</span><h3>Extend without forking</h3><p>The plugin boundary means new capability is a ZIP file, not a patch to the core application.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <div class="section-heading">
+        <h2>Architecture</h2>
+        <p>Five layers, each owning one concern.</p>
+      </div>
+      <div class="arch-stack">
+        <div class="arch-layer"><strong>Desktop UI</strong><span>Qt 6 Widgets - canvas, inspector, toolbox, timeline, console</span></div>
+        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
+        <div class="arch-layer"><strong>Desktop controller</strong><span>File loading, run orchestration, event routing</span></div>
+        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
+        <div class="arch-layer"><strong>Execution engine</strong><span>Topological ordering, routing, control signals, retries</span></div>
+        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
+        <div class="arch-layer"><strong>Node implementations</strong><span>Built-in C++ nodes and Python plugin nodes</span></div>
+        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
+        <div class="arch-layer"><strong>Worker process</strong><span>Headless execution, isolated from the desktop process</span></div>
+      </div>
+      <table class="spec-table">
+        <caption>Source layout</caption>
+        <thead><tr><th scope="col">Area</th><th scope="col">Location</th></tr></thead>
+        <tbody>
+          <tr><td>Core graph, workflow, context, registry</td><td><code>src/core</code></td></tr>
+          <tr><td>Executor, protocol, configuration, plugin loading</td><td><code>src/runtime</code></td></tr>
+          <tr><td>Built-in node implementations</td><td><code>src/plugins/builtin</code></td></tr>
+          <tr><td>Python plugin runtime</td><td><code>src/plugins/python</code></td></tr>
+          <tr><td>Qt desktop UI</td><td><code>src/ui</code></td></tr>
+          <tr><td>Headless worker entry point</td><td><code>worker/main.cpp</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section shell alt-section">
+      <div class="section-heading">
+        <h2>Technology</h2>
+        <p>Chosen for native performance, a mature widget toolkit, and a large extension ecosystem.</p>
+      </div>
+      <div class="tech-grid">
+        <article class="tech-card"><h3>C++20</h3><p>Core engine and built-in node library, built with CMake 3.24 or newer.</p></article>
+        <article class="tech-card"><h3>Qt 6</h3><p>Desktop UI, graphics canvas, networking, and SQL integrations.</p></article>
+        <article class="tech-card"><h3>Python 3</h3><p>Plugin runtime for extending the node library without recompiling.</p></article>
+        <article class="tech-card"><h3>JSON</h3><p>Workflow persistence, plugin manifests, and the worker event protocol.</p></article>
+      </div>
+      <p>Automated tests cover graph validation, protocol handling, workflow persistence, executor control flow, variables, arithmetic, network, image, streaming and data nodes, template resolution, Python runtime sessions, and UI behavior.</p>
+    </section>
+
+    <section class="section shell">
+      <div class="split-block">
+        <div class="split-sticky">
+          <h2>Responsible use</h2>
+          <p>A general-purpose automation tool deserves deliberate operation.</p>
+        </div>
+        <div class="prose">
+          <p>GingerFlow can read, transform, move, delete, upload, download, execute, and transmit data depending on the nodes and plugins used. Before running a workflow against anything that matters:</p>
+          <ul class="check-list">
+            <li>Review every node, path, URL, credential, command, repeat setting, and listener.</li>
+            <li>Test with representative non-production data and keep backups.</li>
+            <li>Use least-privilege credentials and keep secrets out of workflow files and logs.</li>
+            <li>Install only trusted plugins and review their dependencies and permissions.</li>
+            <li>Plan cancellation, monitoring, and resource limits for long-running workflows.</li>
+            <li>Confirm privacy, retention, licensing, and compliance requirements.</li>
+          </ul>
+          <h3>Data handling</h3>
+          <p>The core application does not collect or transmit workflow data, file contents, credentials, execution payloads, plugin data, or telemetry to the GingerFlow developer. Workflows and plugins may still communicate with APIs, databases, FTP servers, email services, or cloud services that the workflow owner explicitly configures. Review those nodes and plugins separately, because their external communication is controlled by their configuration and code.</p>
+          <p class="callout warning"><strong>No warranty of fitness.</strong> GingerFlow is provided without a promise that a workflow is suitable for a particular business, safety-critical, regulated, financial, medical, or legal use. Obtain appropriate technical, security, and compliance review before deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell alt-section">
+      <div class="section-heading">
+        <h2>Project status</h2>
+        <p>An active application, not a scaffold.</p>
+      </div>
+      <div class="status-grid">
+        <div class="status-item"><strong>Implemented</strong><p>Desktop editor, worker runtime, built-in library, plugin platform, streaming nodes, custom-node clubbing, persistence, theming, crash logging, and automated tests.</p></div>
+        <div class="status-item"><strong>Evolving</strong><p>The codebase continues to grow. Treat the current source and tests as authoritative, and keep contributions focused on their owning layer.</p></div>
+        <div class="status-item"><strong>Current release</strong><p>Version 1.0.2, distributed as a packaged Windows build alongside the standalone command-line worker.</p></div>
+      </div>
+    </section>
+
+    <section class="cta-section shell">
+      <div class="cta-card">
+        <div><p class="eyebrow">See it for yourself</p><h2>Download GingerFlow<br>and <em>build a flow.</em></h2></div>
+        <div class="cta-action"><a class="button button-primary" href="download.html">Get the latest release <span aria-hidden="true">-&gt;</span></a><small>Windows &middot; free to use</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a>
+        <p>Visual workflows, without the black box.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product"><h2>Product</h2><a href="capabilities.html">Capabilities</a><a href="download.html">Download</a><a href="about.html">About</a></nav>
+      <nav class="footer-col" aria-label="Documentation"><h2>Documentation</h2><a href="docs.html">Docs</a><a href="plugin-development.html">Plugin development</a><a href="docs.html#troubleshooting">Troubleshooting</a></nav>
+    </div>
+    <div class="shell footer-base"><span>Built for clarity.</span><span class="footer-note">GingerFlow 1.0.2</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,36 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="GingerFlow is a visual workflow engine for building, inspecting, and automating data workflows.">
-  <title>GingerFlow - Visual workflows, without the black box</title>
+  <title>GingerFlow - Visual Workflow Engine for Data Automation</title>
+  <meta name="description" content="GingerFlow is a desktop visual workflow engine for building, executing, and reusing data workflows. Drag-and-drop nodes, streaming pipelines, and Python plugins - free for Windows.">
+  <meta name="keywords" content="visual workflow engine, workflow automation software, node based automation, data pipeline tool, ETL workflow builder, Python workflow plugins">
+  <link rel="canonical" href="https://gingerflow.dev/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="GingerFlow">
+  <meta name="theme-color" content="#f36b3d">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GingerFlow">
+  <meta property="og:title" content="GingerFlow - Visual Workflow Engine for Data Automation">
+  <meta property="og:description" content="Build, execute, and reuse data workflows on a visual canvas. Streaming pipelines, reusable custom nodes, and Python plugins.">
+  <meta property="og:url" content="https://gingerflow.dev/">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GingerFlow - Visual Workflow Engine for Data Automation">
+  <meta name="twitter:description" content="Build, execute, and reuse data workflows on a visual canvas. Free for Windows.">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GingerFlow",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows 10, Windows 11",
+    "softwareVersion": "1.0.2",
+    "url": "https://gingerflow.dev/",
+    "downloadUrl": "https://github.com/priyankdalal/GingerFlow/releases/tag/1.0.1-Beta",
+    "description": "A desktop visual workflow engine for building, executing, packaging, and reusing data workflows, with a validated DAG runtime, streaming pipelines, and Python plugins.",
+    "featureList": [
+      "Visual node editor with typed ports",
+      "Validated DAG execution with conditional branching",
+      "Bounded-memory streaming file and CSV pipelines",
+      "Reusable custom nodes",
+      "Python plugin system",
+      "Headless worker for automation"
+    ],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <nav class="nav shell" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="GingerFlow home">
+      <a class="brand" href="index.html" aria-label="GingerFlow home">
         <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
         <span>Ginger<span>Flow</span></span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
       <div class="nav-links" id="site-menu">
-        <a href="#why">Why GingerFlow</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#plugins">Plugins</a>
-        <a href="#docs">Docs</a>
-        <a class="nav-cta" href="#get-started">Get started <span aria-hidden="true">-&gt;</span></a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="docs.html">Docs</a>
+        <a href="plugin-development.html">Plugins</a>
+        <a href="about.html">About</a>
+        <a class="nav-cta" href="download.html">Download <span aria-hidden="true">-&gt;</span></a>
       </div>
     </nav>
   </header>
 
-  <main id="top">
+  <main id="main">
     <section class="hero shell">
       <div class="hero-copy">
         <p class="eyebrow"><span class="eyebrow-dot"></span> Open workflow automation for teams</p>
         <h1>Make complex work<br><em>flow.</em></h1>
         <p class="hero-lede">GingerFlow is a visual workflow engine for building, executing, and reusing data workflows - with every connection, decision, and result in view.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#get-started">Build your first flow <span aria-hidden="true">-&gt;</span></a>
+          <a class="button button-primary" href="download.html">Download GingerFlow <span aria-hidden="true">-&gt;</span></a>
           <a class="text-link" href="#workflow-demo">See how it works <span aria-hidden="true">&#9654;</span></a>
         </div>
         <div class="hero-proof">
@@ -78,9 +115,9 @@
         <p>It is a system of decisions, data, and dependencies. GingerFlow makes that system explicit, inspectable, and easy to evolve.</p>
       </div>
       <div class="feature-grid">
-        <article class="feature-card accent-orange"><span class="feature-number">01</span><div class="feature-icon">&#9673;</div><h3>See the whole flow</h3><p>Compose typed nodes on a canvas and follow data from source to outcome. No hidden branches. No mystery state.</p><a href="#capabilities">Explore visual authoring <span>-&gt;</span></a></article>
-        <article class="feature-card accent-blue"><span class="feature-number">02</span><div class="feature-icon">&#10022;</div><h3>Run with confidence</h3><p>Validate graphs, retry failures, inspect timing, and cancel safely. The runtime is designed to show its work.</p><a href="#capabilities">Explore the runtime <span>-&gt;</span></a></article>
-        <article class="feature-card accent-purple"><span class="feature-number">03</span><div class="feature-icon">&#8734;</div><h3>Make it reusable</h3><p>Turn proven sections into custom nodes, or extend the system with Python plugins without touching the core.</p><a href="#plugins">Explore extensibility <span>-&gt;</span></a></article>
+        <article class="feature-card accent-orange"><span class="feature-number">01</span><div class="feature-icon">&#9673;</div><h3>See the whole flow</h3><p>Compose typed nodes on a canvas and follow data from source to outcome. No hidden branches. No mystery state.</p><a href="capabilities.html">Explore visual authoring <span>-&gt;</span></a></article>
+        <article class="feature-card accent-blue"><span class="feature-number">02</span><div class="feature-icon">&#10022;</div><h3>Run with confidence</h3><p>Validate graphs, retry failures, inspect timing, and cancel safely. The runtime is designed to show its work.</p><a href="capabilities.html#runtime">Explore the runtime <span>-&gt;</span></a></article>
+        <article class="feature-card accent-purple"><span class="feature-number">03</span><div class="feature-icon">&#8734;</div><h3>Make it reusable</h3><p>Turn proven sections into custom nodes, or extend the system with Python plugins without touching the core.</p><a href="plugin-development.html">Explore extensibility <span>-&gt;</span></a></article>
       </div>
     </section>
 
@@ -90,7 +127,7 @@
           <p class="eyebrow">One canvas. Many possibilities.</p>
           <h2>From first idea<br>to <em>finished flow.</em></h2>
           <p>Start with a simple automation. Scale to streaming pipelines, API integrations, data quality checks, and long-running listeners without leaving the visual environment.</p>
-          <a class="button button-light" href="#get-started">See the workflow guide <span>-&gt;</span></a>
+          <a class="button button-light" href="capabilities.html">See all capabilities <span>-&gt;</span></a>
         </div>
         <div class="capability-list">
           <div class="capability active"><span>01</span><div><h3>Visual authoring</h3><p>Typed ports, alignment tools, notes, regions, quick search, and undo/redo.</p></div><b>+</b></div>
@@ -102,7 +139,7 @@
     </section>
 
     <section class="plugin-section shell" id="plugins">
-      <div class="plugin-copy"><p class="eyebrow">Bring your own building blocks</p><h2>Extend the flow.<br><em>Keep the focus.</em></h2><p>Package Python nodes as ZIP plugins and install them from the Plugin Manager. Use the Python ecosystem for AI, OCR, analytics, databases, and domain-specific tools.</p><a class="text-link" href="#docs">Read the plugin guide <span>-&gt;</span></a></div>
+      <div class="plugin-copy"><p class="eyebrow">Bring your own building blocks</p><h2>Extend the flow.<br><em>Keep the focus.</em></h2><p>Package Python nodes as ZIP plugins and install them from the Plugin Manager. Use the Python ecosystem for AI, OCR, analytics, databases, and domain-specific tools.</p><a class="text-link" href="plugin-development.html">Read the plugin guide <span>-&gt;</span></a></div>
       <div class="code-card"><div class="code-top"><span>plugin.json</span><span>Python node</span></div><pre><code><span class="code-pink">{</span>
   <span class="code-key">"type"</span>: <span class="code-green">"acme.normalize"</span>,
   <span class="code-key">"display_name"</span>: <span class="code-green">"Normalize"</span>,
@@ -115,12 +152,22 @@
     </section>
 
     <section class="docs-section" id="docs">
-      <div class="shell docs-inner"><div><p class="eyebrow">Learn the system</p><h2>Good flows start<br>with a clear model.</h2></div><div class="docs-links"><a href="../wiki/Getting-Started.md"><span>01</span><strong>Getting started</strong><b>-&gt;</b></a><a href="../wiki/Workflow-Guide.md"><span>02</span><strong>Workflow guide</strong><b>-&gt;</b></a><a href="../wiki/Plugins.md"><span>03</span><strong>Python plugins</strong><b>-&gt;</b></a></div></div>
+      <div class="shell docs-inner"><div><p class="eyebrow">Learn the system</p><h2>Good flows start<br>with a clear model.</h2></div><div class="docs-links"><a href="download.html"><span>01</span><strong>Download &amp; install</strong><b>-&gt;</b></a><a href="docs.html"><span>02</span><strong>Documentation</strong><b>-&gt;</b></a><a href="plugin-development.html"><span>03</span><strong>Plugin development</strong><b>-&gt;</b></a><a href="about.html"><span>04</span><strong>About the project</strong><b>-&gt;</b></a></div></div>
     </section>
 
-    <section class="cta-section shell" id="get-started"><div class="cta-card"><div><p class="eyebrow">Ready when you are</p><h2>Turn the next complex thing<br>into a <em>clear flow.</em></h2></div><div class="cta-action"><a class="button button-primary" href="../wiki/Getting-Started.md">Get started with GingerFlow <span>-&gt;</span></a><small>Qt 6 &middot; C++20 &middot; Python plugins</small></div></div></section>
+    <section class="cta-section shell" id="get-started"><div class="cta-card"><div><p class="eyebrow">Ready when you are</p><h2>Turn the next complex thing<br>into a <em>clear flow.</em></h2></div><div class="cta-action"><a class="button button-primary" href="download.html">Download GingerFlow <span>-&gt;</span></a><small>Windows &middot; free &middot; no build tools required</small></div></div></section>
   </main>
-  <footer class="footer"><div class="shell footer-inner"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a><p>Visual workflows, without the black box.</p><span class="footer-note">Built for clarity.</span></div></footer>
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a>
+        <p>Visual workflows, without the black box.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product"><h2>Product</h2><a href="capabilities.html">Capabilities</a><a href="download.html">Download</a><a href="about.html">About</a></nav>
+      <nav class="footer-col" aria-label="Documentation"><h2>Documentation</h2><a href="docs.html">Docs</a><a href="plugin-development.html">Plugin development</a><a href="docs.html#troubleshooting">Troubleshooting</a></nav>
+    </div>
+    <div class="shell footer-base"><span>Built for clarity.</span><span class="footer-note">GingerFlow 1.0.2</span></div>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

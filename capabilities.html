@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capabilities - Visual Workflow Automation Features | GingerFlow</title>
+  <meta name="description" content="Explore GingerFlow capabilities: visual node editor, validated DAG execution, conditional branching, streaming CSV pipelines, reusable custom nodes, and 200+ built-in automation nodes.">
+  <meta name="keywords" content="workflow automation features, visual node editor, DAG execution engine, streaming data pipeline, ETL workflow tool">
+  <link rel="canonical" href="https://gingerflow.dev/capabilities.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GingerFlow">
+  <meta property="og:title" content="Capabilities - Visual Workflow Automation Features | GingerFlow">
+  <meta property="og:description" content="Visual authoring, a defensive execution runtime, streaming pipelines, and a broad built-in node library.">
+  <meta property="og:url" content="https://gingerflow.dev/capabilities.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Capabilities | GingerFlow">
+  <meta name="twitter:description" content="Visual authoring, defensive execution, streaming pipelines, and a broad built-in node library.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gingerflow.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Capabilities", "item": "https://gingerflow.dev/capabilities.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="GingerFlow home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Ginger<span>Flow</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+      <div class="nav-links" id="site-menu">
+        <a href="capabilities.html" aria-current="page">Capabilities</a>
+        <a href="docs.html">Docs</a>
+        <a href="plugin-development.html">Plugins</a>
+        <a href="about.html">About</a>
+        <a class="nav-cta" href="download.html">Download <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span>/</span> Capabilities</nav>
+      <p class="eyebrow"><span class="eyebrow-dot"></span> Capabilities</p>
+      <h1>Everything you need to<br><em>build real workflows.</em></h1>
+      <p class="page-lede">GingerFlow is a complete workflow environment: a visual editor, a defensive execution runtime, a broad built-in node library, bounded streaming pipelines, and a Python plugin boundary that grows with your needs.</p>
+    </section>
+
+    <section class="section shell" aria-labelledby="authoring">
+      <div class="split-block">
+        <div class="split-sticky">
+          <span class="chapter-number">01</span>
+          <h2 id="authoring">Visual authoring</h2>
+          <p>Compose workflows by placing nodes, connecting typed ports, and configuring values directly on the canvas.</p>
+        </div>
+        <div class="detail-grid">
+          <article class="detail-card"><h3>Canvas navigation</h3><p>Pan, zoom, minimap, alignment grid, grid visibility toggle, and fit-to-view tools keep large graphs manageable.</p></article>
+          <article class="detail-card"><h3>Typed ports</h3><p>Inputs and outputs declare their data type. Inline editable values let you configure a node without leaving the canvas.</p></article>
+          <article class="detail-card"><h3>Wire styles</h3><p>Choose Bezier, straight, or stepped wires so dense graphs stay readable.</p></article>
+          <article class="detail-card"><h3>Organisation</h3><p>Regions, notes, duplication, copy and paste, keyboard navigation, and selection-aware undo/redo.</p></article>
+          <article class="detail-card"><h3>Discovery</h3><p>Searchable Toolbox and Quick Node Search match on category, type, and description.</p></article>
+          <article class="detail-card"><h3>Property Inspector</h3><p>Configure node parameters and central-widget values in a dedicated panel.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" aria-labelledby="runtime">
+      <div class="shell split-block">
+        <div class="split-sticky light">
+          <span class="chapter-number">02</span>
+          <h2 id="runtime">Execution runtime</h2>
+          <p>The runtime validates the graph before it runs, then shows its work while it executes.</p>
+        </div>
+        <div class="detail-grid">
+          <article class="detail-card dark"><h3>DAG validation</h3><p>Cycle detection and topological ordering run before execution so structural problems surface early.</p></article>
+          <article class="detail-card dark"><h3>Stale propagation</h3><p>Only nodes affected by new values are recomputed, keeping iterative runs fast.</p></article>
+          <article class="detail-card dark"><h3>Conditional routing</h3><p><code>__active_outputs__</code> selects which output ports are active for a given pass.</p></article>
+          <article class="detail-card dark"><h3>Branch control</h3><p><code>__stop_branch__</code> blocks a downstream branch; <code>__enabled__</code> skips a node entirely.</p></article>
+          <article class="detail-card dark"><h3>Repeats and limits</h3><p><code>__repeat_node__</code> schedules another iteration, bounded by per-node <em>Max Iterations</em>.</p></article>
+          <article class="detail-card dark"><h3>Retries and cancellation</h3><p>Configurable retry count and backoff, with cancellation propagated across desktop, worker, and Python execution.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="library">
+      <div class="section-heading">
+        <span class="chapter-number">03</span>
+        <h2 id="library">Built-in node library</h2>
+        <p>A broad, composable vocabulary rather than a handful of demo nodes. Combine, repeat, branch, group, inspect, and extend.</p>
+      </div>
+      <div class="category-grid">
+        <article class="category-card"><h3>Logic</h3><p>if, switch, filter, loop, collect, join, split, merge, combine, delay, stop, unique, flatten, sort, group-by</p></article>
+        <article class="category-card"><h3>Arithmetic</h3><p>addition, subtraction, multiplication, division, remainder, power, rounding, trigonometry, calculation</p></article>
+        <article class="category-card"><h3>Strings</h3><p>concatenate, split, join, substring, search, replace, case conversion, padding, URI encoding, edit distance</p></article>
+        <article class="category-card"><h3>Data</h3><p>partition, aggregate, index, pivot, unpivot, zip, Cartesian product, slice, rename keys, deep merge, JSON diff and patch</p></article>
+        <article class="category-card"><h3>Transforms</h3><p>JSON mapper, JSON path, templates, regular expressions, JSON/YAML/XML/TOML conversion, Markdown</p></article>
+        <article class="category-card"><h3>Files</h3><p>read/write, CSV, checksum, FTP, text files, path and directory operations, copy, move, rename, delete</p></article>
+        <article class="category-card"><h3>Streaming</h3><p>bounded file and CSV pipelines plus batch transform, filter, and aggregate nodes</p></article>
+        <article class="category-card"><h3>Archives</h3><p>ZIP and GZip compression, extraction, and listing</p></article>
+        <article class="category-card"><h3>Database</h3><p>SQL Server, MySQL, PostgreSQL, SQLite, and MongoDB where runtime drivers are available</p></article>
+        <article class="category-card"><h3>Network</h3><p>REST, GraphQL, URL parsing and building, HTTP upload/download, DNS lookup, ping, port checks</p></article>
+        <article class="category-card"><h3>Images &amp; Email</h3><p>image metadata and scaling, SMTP and IMAP operations</p></article>
+        <article class="category-card"><h3>Utilities</h3><p>environment values, timers, random values, ranges, logging, assertions, type conversion, process execution</p></article>
+      </div>
+    </section>
+
+    <section class="section shell alt-section" aria-labelledby="streaming">
+      <div class="split-block">
+        <div class="split-sticky">
+          <span class="chapter-number">04</span>
+          <h2 id="streaming">Streaming pipelines</h2>
+          <p>Process large files in bounded chunks or row batches instead of loading a whole dataset into memory.</p>
+        </div>
+        <div>
+          <div class="pipeline-diagram" aria-label="Streaming pipeline example">
+            <span>CSV Stream Read</span><b>-&gt;</b><span>Stream Filter</span><b>-&gt;</b><span>Stream Transform</span><b>-&gt;</b><span>CSV Stream Write</span>
+          </div>
+          <table class="spec-table">
+            <caption>Stream category nodes</caption>
+            <thead><tr><th scope="col">Node</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>file.stream_read</code></td><td>Emit bounded binary chunks</td></tr>
+              <tr><td><code>file.stream_write</code></td><td>Write binary chunks directly to disk</td></tr>
+              <tr><td><code>file.csv_stream_read</code></td><td>Emit CSV rows in bounded batches</td></tr>
+              <tr><td><code>file.csv_stream_write</code></td><td>Append CSV batches directly to disk</td></tr>
+              <tr><td><code>stream.transform</code></td><td>Transform each text or binary chunk</td></tr>
+              <tr><td><code>stream.filter</code></td><td>Filter rows within each batch</td></tr>
+              <tr><td><code>stream.aggregate</code></td><td>Accumulate values across batches</td></tr>
+            </tbody>
+          </table>
+          <p class="callout warning"><strong>Plan for scale.</strong> Streaming bounds the reader, but downstream nodes and plugins can still build large in-memory values. Pass paths and bounded batches rather than routing an entire large file as one value.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="reuse">
+      <div class="split-block">
+        <div class="split-sticky">
+          <span class="chapter-number">05</span>
+          <h2 id="reuse">Reusable custom nodes</h2>
+          <p>Build a process once, validate it, then package it as a single reusable node.</p>
+        </div>
+        <div>
+          <ol class="step-list">
+            <li><strong>Select</strong> two or more connected nodes on the canvas.</li>
+            <li><strong>Club</strong> them with <em>Club Selected Nodes...</em> from the context menu.</li>
+            <li><strong>Review</strong> the detected boundary inputs and outputs and their data types.</li>
+            <li><strong>Name</strong> the node; it appears in the <code>Custom</code> category.</li>
+          </ol>
+          <p>Custom nodes preserve inner nodes and connections, boundary ports, data types and defaults, internal branching, nested definitions, and external wires. Definitions are embedded into <code>.fg</code> files under <code>custom_nodes</code> so workflows carry their reusable subflows with them.</p>
+          <p class="callout"><strong>Reversible.</strong> <em>Unclub Node</em> restores the original inner graph. Unclub active instances before deleting a custom definition.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" aria-labelledby="observability">
+      <div class="shell split-block">
+        <div class="split-sticky light">
+          <span class="chapter-number">06</span>
+          <h2 id="observability">Observability</h2>
+          <p>Every run reports what happened, when, and at what cost.</p>
+        </div>
+        <div class="detail-grid">
+          <article class="detail-card dark"><h3>Execution timeline</h3><p>Live node status and timestamps as the workflow progresses.</p></article>
+          <article class="detail-card dark"><h3>Process statistics</h3><p>Duration, memory deltas, CPU progress, and node counts.</p></article>
+          <article class="detail-card dark"><h3>Output console</h3><p>Logs and bounded payload previews for each node.</p></article>
+          <article class="detail-card dark"><h3>Crash capture</h3><p>Crash logs for desktop and worker processes, plus Windows minidumps.</p></article>
+          <article class="detail-card dark"><h3>Flow tracing</h3><p>Set <code>GINGERFLOW_TRACE_FLOW=1</code> for detailed routing traces.</p></article>
+          <article class="detail-card dark"><h3>Worker isolation</h3><p>A failed or timed-out Python process cannot corrupt the desktop process.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section shell">
+      <div class="cta-card">
+        <div><p class="eyebrow">Ready when you are</p><h2>Try it on your<br>next <em>complex process.</em></h2></div>
+        <div class="cta-action"><a class="button button-primary" href="download.html">Download GingerFlow <span aria-hidden="true">-&gt;</span></a><small>Qt 6 &middot; C++20 &middot; Python plugins</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>Ginger<span>Flow</span></span></a>
+        <p>Visual workflows, without the black box.</p>
+      </div>
+      <nav class="footer-col" aria-label="Product"><h2>Product</h2><a href="capabilities.html">Capabilities</a><a href="download.html">Download</a><a href="about.html">About</a></nav>
+      <nav class="footer-col" aria-label="Documentation"><h2>Documentation</h2><a href="docs.html">Docs</a><a href="plugin-development.html">Plugin development</a><a href="docs.html#troubleshooting">Troubleshooting</a></nav>
+    </div>
+    <div class="shell footer-base"><span>Built for clarity.</span><span class="footer-note">GingerFlow 1.0.2</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

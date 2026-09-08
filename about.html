@@ -3,33 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About GingerFlow - Architecture, Philosophy &amp; Responsible Use</title>
-  <meta name="description" content="Learn what GingerFlow is, the design philosophy behind it, its Qt 6 and C++20 architecture, technology stack, data handling policy, and responsible use guidance.">
-  <meta name="keywords" content="about GingerFlow, workflow engine architecture, Qt 6 desktop application, open workflow automation, responsible automation">
+  <title>About GingerFlow - Philosophy, Author &amp; Responsible Use</title>
+  <meta name="description" content="Learn what GingerFlow is, the design philosophy behind it, the author who builds and maintains it, its technology stack, data handling policy, and responsible use guidance.">
+  <meta name="keywords" content="about GingerFlow, GingerFlow author, Priyank Dalal, Qt 6 desktop application, open workflow automation, responsible automation">
+  <meta name="author" content="Priyank Dalal">
   <link rel="canonical" href="https://gingerflow.dev/about.html">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GingerFlow">
-  <meta property="og:title" content="About GingerFlow - Architecture, Philosophy &amp; Responsible Use">
-  <meta property="og:description" content="The design philosophy, architecture, and responsible use principles behind GingerFlow.">
+  <meta property="og:title" content="About GingerFlow - Philosophy, Author &amp; Responsible Use">
+  <meta property="og:description" content="The design philosophy, the author, and the responsible use principles behind GingerFlow.">
   <meta property="og:url" content="https://gingerflow.dev/about.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About GingerFlow">
-  <meta name="twitter:description" content="The design philosophy, architecture, and responsible use principles behind GingerFlow.">
+  <meta name="twitter:description" content="The design philosophy, the author, and the responsible use principles behind GingerFlow.">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "name": "About GingerFlow",
-    "description": "The design philosophy, architecture, and responsible use principles behind GingerFlow.",
+    "description": "The design philosophy, the author, and the responsible use principles behind GingerFlow.",
     "url": "https://gingerflow.dev/about.html",
     "mainEntity": {
       "@type": "SoftwareApplication",
       "name": "GingerFlow",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Windows",
-      "softwareVersion": "1.0.2"
+      "softwareVersion": "1.0.2",
+      "author": {
+        "@type": "Person",
+        "name": "Priyank Dalal",
+        "url": "https://github.com/priyankdalal"
+      }
     }
   }
   </script>
@@ -90,34 +96,19 @@
       </div>
     </section>
 
-    <section class="section shell">
-      <div class="section-heading">
-        <h2>Architecture</h2>
-        <p>Five layers, each owning one concern.</p>
+    <section class="section shell" id="author">
+      <div class="split-block">
+        <div class="split-sticky">
+          <h2>The author</h2>
+          <p>GingerFlow is designed, built, and maintained by Priyank Dalal.</p>
+        </div>
+        <div class="prose">
+          <p>GingerFlow is an independent project. The desktop editor, the C++20 execution engine, the headless worker, the built-in node library, and the Python plugin platform were all built as one coherent whole rather than assembled from separate parts.</p>
+          <p>That single-author origin shows up in the product. Because the same person owns the canvas, the executor, and the plugin boundary, the pieces are designed to agree with each other: what you draw on the canvas is what the engine runs, and a plugin node behaves like a built-in one.</p>
+          <p>The project is actively developed and currently at version 1.0.2. Feedback, bug reports, and plugin contributions are welcome through the GitHub repository.</p>
+          <p><a class="button button-ghost" href="https://github.com/priyankdalal/GingerFlow" target="_blank" rel="noopener">View the project on GitHub <span aria-hidden="true">-&gt;</span></a></p>
+        </div>
       </div>
-      <div class="arch-stack">
-        <div class="arch-layer"><strong>Desktop UI</strong><span>Qt 6 Widgets - canvas, inspector, toolbox, timeline, console</span></div>
-        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
-        <div class="arch-layer"><strong>Desktop controller</strong><span>File loading, run orchestration, event routing</span></div>
-        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
-        <div class="arch-layer"><strong>Execution engine</strong><span>Topological ordering, routing, control signals, retries</span></div>
-        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
-        <div class="arch-layer"><strong>Node implementations</strong><span>Built-in C++ nodes and Python plugin nodes</span></div>
-        <div class="arch-arrow" aria-hidden="true">&#8595;</div>
-        <div class="arch-layer"><strong>Worker process</strong><span>Headless execution, isolated from the desktop process</span></div>
-      </div>
-      <table class="spec-table">
-        <caption>Source layout</caption>
-        <thead><tr><th scope="col">Area</th><th scope="col">Location</th></tr></thead>
-        <tbody>
-          <tr><td>Core graph, workflow, context, registry</td><td><code>src/core</code></td></tr>
-          <tr><td>Executor, protocol, configuration, plugin loading</td><td><code>src/runtime</code></td></tr>
-          <tr><td>Built-in node implementations</td><td><code>src/plugins/builtin</code></td></tr>
-          <tr><td>Python plugin runtime</td><td><code>src/plugins/python</code></td></tr>
-          <tr><td>Qt desktop UI</td><td><code>src/ui</code></td></tr>
-          <tr><td>Headless worker entry point</td><td><code>worker/main.cpp</code></td></tr>
-        </tbody>
-      </table>
     </section>
 
     <section class="section shell alt-section">
